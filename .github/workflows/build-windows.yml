@@ -9,7 +9,7 @@ concurrency:
 jobs:
   # CI matrix - runs the job in lagom-template.yml with different configurations.
   Lagom:
-    if: github.repository == 'LadybirdBrowser/ladybird'
+    if: github.repository == 'ahmadmdmobile/ladybird'
     name: ${{ matrix.os_name }}, ${{ matrix.arch }}, ${{ matrix.build_preset }}, ${{ matrix.toolchain }}
 
     strategy:
@@ -75,22 +75,22 @@ jobs:
       build_preset: ${{ matrix.build_preset }}
       clang_plugins: ${{ matrix.clang_plugins }}
 
-  # Flatpak:
-  #   if: github.repository == 'LadybirdBrowser/ladybird'
-  #   name: Flatpak ${{ matrix.arch }}
+  Flatpak:
+    if: github.repository == 'ahmadmdmobile/ladybird'
+    name: Flatpak ${{ matrix.arch }}
 
-  #   strategy:
-  #     fail-fast: false
-  #     matrix:
-  #       arch: ['x86_64']
-  #       runner_labels: ['["blacksmith-16vcpu-ubuntu-2404"]']
+    strategy:
+      fail-fast: false
+      matrix:
+        arch: ['x86_64']
+        runner_labels: ['["blacksmith-16vcpu-ubuntu-2404"]']
 
-  #       include:
-  #         - arch: 'aarch64'
-  #           runner_labels: '["blacksmith-16vcpu-ubuntu-2404-arm"]'
+        include:
+          - arch: 'aarch64'
+            runner_labels: '["blacksmith-16vcpu-ubuntu-2404-arm"]'
 
-  #   secrets: inherit
-  #   uses: ./.github/workflows/flatpak-template.yml
-  #   with:
-  #     arch: ${{ matrix.arch }}
-  #     runner_labels: ${{ matrix.runner_labels }}
+    secrets: inherit
+    uses: ./.github/workflows/flatpak-template.yml
+    with:
+      arch: ${{ matrix.arch }}
+      runner_labels: ${{ matrix.runner_labels }}
